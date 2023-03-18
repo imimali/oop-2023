@@ -27,5 +27,12 @@ int main() {
             strcpy(elements[i][j].name, names[i][j]);
         }
     }
-    // TODO deallocate
+    // deallocate bottom-up:
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            free(elements[i][j].name);
+        }
+        free(elements[i]);
+    }
+    free(elements);
 }
