@@ -110,4 +110,5 @@ int main() {
     return 0;
 }
 ```
+More on this [here](https://www.cs.ubbcluj.ro/~istvanc/oop/curs/Curs2-Functii,%20Functii%20de%20test,%20Alocare%20dinamica%20in%20C.pdf).
 
