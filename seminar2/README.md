@@ -120,3 +120,20 @@ int main() {
 ```
 
 Question: how much memory did we actually allocate in bytes?
+
+
+Deallocation:
+```c
+// deallocate bottom-up:
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            free(elements[i][j].name);
+        }
+        free(elements[i]);
+    }
+    free(elements);
+```
+
+The whole thing looks like this in memory:
+
+[!memory_scheme](/pics/memory_scheme.png)
