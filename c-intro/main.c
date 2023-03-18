@@ -3,25 +3,30 @@
 //
 #include <stdio.h>
 
-typedef struct {
-    int age;
-    char name[20];
-} Person;
+int f(int a) {
+    // a different address from the original argument's address, the same value
+    printf("Address of a: %x, value of a: %d\n", &a, a);
+    a += 1;//no effect on original
+    return a;
+}
+
+void f_that_can_modify(int *a) {
+    // all arguments are passed by value, we can mutate values from outside the original scope of the function
+    // by passing an address - still by value.
+    printf("Address of a: %x, value of a: %x\n", &a, a);
+    *a += 1; // dereference
+}
+
 
 int main() {
-    Person p;
-    Person people[100];
-    printf("One p takes: %lu bytes\n", sizeof p);
-    printf("%lu ps take: %lu bytes\n", sizeof people / sizeof p, sizeof people);
-    printf("One address takes: sizeof &p = %lu, sizeof &people=%lu. No matter the type, an address is an address\n",
-           sizeof &p, sizeof &people); // although clang tidy will complain
+    int k = 9;
+    printf("Address of k: %x, value of k: %d\n", &k, k);
+    int from_f = f(k);
+    // yet another address, same value
+    printf("Address of from_f: %x, value of from_f: %d\n", &from_f, from_f);
+    printf("Address of k after calling f: %x, value of k: %d\n", &k, k);
 
-    int i;
-    char c;
-    long l;
-    float f;
-    double d;
-    printf("These all take: int %lu, char %lu, long %lu, float %lu, double %lu\n", sizeof i, sizeof c, sizeof l,
-           sizeof f, sizeof d);
+    f_that_can_modify(&k);
+    printf("Address of k after calling f that can modify: %x, value of k: %d\n", &k, k);
     return 0;
 }
