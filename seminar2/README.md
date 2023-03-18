@@ -138,4 +138,4 @@ Everything that was allocated, has to be deallocated. Otherwise,
 deallocation is done in the reverse order of allocation.
 The whole thing looks like this in memory:
 
-[!memory_scheme](/pics/memory_scheme.png)
+![memory_scheme](/pics/memory_scheme.png)
