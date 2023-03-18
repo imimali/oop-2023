@@ -136,4 +136,4 @@ Deallocation:
 
 The whole thing looks like this in memory:
 
-[!memory_scheme](/pics/memory_scheme.png)
+![memory_scheme](/pics/memory_scheme.png)
