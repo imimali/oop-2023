@@ -3,27 +3,25 @@
 //
 #include <stdio.h>
 
-struct Person {
-    int age;
-    char name[20];
-};
-
-// typedef <existing type> <alias> where now existing type is `struct Person` and alias is `Person1`;
-typedef struct Person Person1;
-
-// analogously
-
 typedef struct {
     int age;
     char name[20];
-} Person2;
-
-// where existing type now is struct { ... } and alias is Person2
-
+} Person;
 
 int main() {
-    struct Person p;
-    Person1 p1; // but no Person p;
-    printf("Hello world!\n");
+    Person p;
+    Person people[100];
+    printf("One p takes: %lu bytes\n", sizeof p);
+    printf("%lu ps take: %lu bytes\n", sizeof people / sizeof p, sizeof people);
+    printf("One address takes: sizeof &p = %lu, sizeof &people=%lu. No matter the type, an address is an address\n",
+           sizeof &p, sizeof &people); // although clang tidy will complain
+
+    int i;
+    char c;
+    long l;
+    float f;
+    double d;
+    printf("These all take: int %lu, char %lu, long %lu, float %lu, double %lu\n", sizeof i, sizeof c, sizeof l,
+           sizeof f, sizeof d);
     return 0;
 }
