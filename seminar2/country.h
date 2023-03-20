@@ -11,9 +11,9 @@ typedef struct {
     int population;
 } Country;
 
-Country *create_country(char* name, char* capital, int population);
+Country *create_country(char *name, char *capital, int population);
 
-void destroyCountry();
+void destroy_country();
 
 Country *copy_country(Country *country);
 
