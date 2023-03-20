@@ -8,19 +8,24 @@ typedef void *TElem;
 
 typedef void (*DestroyFn)(TElem);
 
+typedef TElem (*CopyFn)(TElem);
+
 typedef struct {
     int length;
     int capacity;
     TElem *elems;
     DestroyFn destroyFn;
+    CopyFn copyFn;
 } List;
 
 
-List *create_list(DestroyFn destroyFn);
+List *create_list(DestroyFn destroyFn, CopyFn copyFn);
 
-void destroy();
+void destroy_list(List *l);
 
-void add(TElem element);
+List *copy_list(List *l);
+
+void add(List *l, TElem element);
 
 void test_list();
 
