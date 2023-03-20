@@ -167,3 +167,7 @@ Element *elements = (Element *) malloc(sizeof(Element) * 3);
 Note how only the area containing the address is in the contiguous part
 of the memory zone of one `Element`. 
 
+## A longer example
+
+See [the code](./main.c).
+
