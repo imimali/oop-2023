@@ -137,3 +137,33 @@ Deallocation:
 The whole thing looks like this in memory:
 
 ![memory_scheme](/pics/memory_scheme.png)
+
+## More on how memory is laid out
+Say we have the following:
+```c
+typedef struct {
+    char name[20];
+    int a;
+    float b;
+} Element;
+
+Element *elements = (Element *) malloc(sizeof(Element) * 3);
+```
+This would look something like this in memory
+![memory_scheme](/pics/memory_scheme_2.png)
+
+But then we could have something like:
+```c
+typedef struct {
+    char* name;
+    int a;
+    float b;
+} Element;
+
+Element *elements = (Element *) malloc(sizeof(Element) * 3);
+```
+![memory_scheme](/pics/memory_scheme_3.png)
+
+Note how only the area containing the address is in the contiguous part
+of the memory zone of one `Element`. 
+
