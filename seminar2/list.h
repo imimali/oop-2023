@@ -6,18 +6,21 @@
 #define SEMINAR2_LIST_H
 typedef void *TElem;
 
+typedef void (*DestroyFn)(TElem);
+
 typedef struct {
     int length;
     int capacity;
     TElem *elems;
+    DestroyFn destroyFn;
 } List;
 
-typedef void (*DestroyFn)(TElem);
 
-List *create(DestroyFn destroyFn);
+List *create_list(DestroyFn destroyFn);
 
 void destroy();
 
+void add(TElem element);
 
 void test_list();
 
