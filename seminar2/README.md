@@ -138,7 +138,7 @@ Everything that was allocated, has to be deallocated. Otherwise,
 deallocation is done in the reverse order of allocation.
 The whole thing looks like this in memory:
 
-![memory_scheme](/pics/memory_scheme.png)
+![memory schemme](./pics/memory_scheme.png)
 
 ## More on how memory is laid out
 Say we have the following:
@@ -152,7 +152,7 @@ typedef struct {
 Element *elements = (Element *) malloc(sizeof(Element) * 3);
 ```
 This would look something like this in memory
-![memory_scheme](/pics/memory_scheme_2.png)
+![memory_scheme](./pics/memory_scheme_2.png)
 
 But then we could have something like:
 ```c
@@ -164,7 +164,7 @@ typedef struct {
 
 Element *elements = (Element *) malloc(sizeof(Element) * 3);
 ```
-![memory_scheme](/pics/memory_scheme_3.png)
+![memory_scheme](./pics/memory_scheme_3.png)
 
 Note how only the area containing the address is in the contiguous part
 of the memory zone of one `Element`. 
