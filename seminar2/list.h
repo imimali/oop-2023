@@ -25,7 +25,11 @@ void destroy_list(List *l);
 
 List *copy_list(List *l);
 
+int length(List *l);
+
 void add(List *l, TElem element);
+
+TElem pop(List *l);
 
 void test_list();
 

@@ -14,12 +14,22 @@ typedef struct {
 
 } Service;
 
+/// Create new service
+/// \return
 Service *createService();
 
-
+/// Destroy service
+/// \param s
 void destroy_service(Service *s);
 
+/// Add a country
+/// \param s  service to add country to
+/// \param country
 void add_country(Service *s, Country *country);
+
+/// Undo last operation
+/// \return
+int undo();
 
 void test_service();
 
