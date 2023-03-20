@@ -46,6 +46,17 @@ List *copy_list(List *l) {
     return new_l;
 }
 
+int length(List *l) {
+    return l->length;
+}
+
+TElem pop(List *l) {
+
+    TElem elem = l->elems[l->length - 1];
+    l->length -= 1;
+    return elem;
+}
+
 void test_list() {
     List *l = create_list((DestroyFn) destroy_country, (CopyFn) copy_country);
     assert(l->capacity == INIT_CAPACITY);
@@ -55,4 +66,5 @@ void test_list() {
     assert(l->length == 1);
     destroy_list(l);
     destroy_list(other);
+    //TODO test more, when resize is implemented, etc.
 }

@@ -26,8 +26,21 @@ void add_country(Service *s, Country *country) {
     add(s->elements, country);
 }
 
+int undo(Service *service) {
+    if (length(service->undoList) == 0) {
+        return 1;
+    }
+    List *l = pop(service->undoList);
+    destroy_list(service->elements);
+    service->elements = l;
+    return 0;
+}
+
 void test_service() {
     Service *s = createService();
     add_country(s, create_country("Portugal", "Lisbon", 34));
+
+    undo(s);
+    //TODO test more: test if deallocation is successful with a non-empty undo-stack, etc.
     destroy_service(s);
 }

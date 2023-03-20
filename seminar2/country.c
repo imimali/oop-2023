@@ -20,7 +20,7 @@ Country *create_country(char *name, char *capital, int population) {
 
 }
 
-void c(Country *country) {
+void destroy_country(Country *country) {
     free(country->name);
     free(country->capital);
     free(country);
