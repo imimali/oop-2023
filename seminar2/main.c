@@ -8,7 +8,8 @@ typedef struct {
     int population;
 } Country;
 
-int main() {
+void f() {
+
     int n = 2, m = 3;
     char *names[2][3] = {{"Romania", "Bulgaria", "Croatia"},
                          {"Russia",  "China",    "Indonesia"}};
@@ -28,6 +29,22 @@ int main() {
             countries[i][j].population = i + j;
         }
     }
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            free(countries[i][j].name);
+            free(countries[i][j].capital);
+        }
+        free(countries[i]);
+    }
+    free(countries);
+}
+
+int main() {
+
+    f();
+    getchar();
+    getchar();
     return 0;
 
 }
