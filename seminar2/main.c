@@ -1,38 +1,33 @@
 #include <stdlib.h>
-#include <string.h>
 #include <stdio.h>
+#include <string.h>
 
-typedef struct Element {
+typedef struct {
     char *name;
-    int value;
-} Element;
+    char *capital;
+    int population;
+} Country;
 
 int main() {
-    int rows = 2, columns = 3;
+    int n = 2, m = 3;
+    char *names[2][3] = {{"Romania", "Bulgaria", "Croatia"},
+                         {"Russia",  "China",    "Indonesia"}};
 
-    char *names[2][3] = {{"Simon Petrikov", "Finn", "Jake"},
-                         {"A",              "B",    "C"}};
+    char *capitals[2][3] = {{"Bucharest", "Sofia",   "Zagreb"},
+                            {"Moscow",    "Beijing", "Djakarta"}};
+    Country **countries = (Country **) malloc(n * sizeof(Country *));
+    for (int i = 0; i < n; i++) {
+        countries[i] = (Country *) malloc(m * sizeof(Country));
+        for (int j = 0; j < m; j++) {
+            countries[i][j].name = (char *) malloc(sizeof(char) * strlen(names[i][j]) + 1);
+            strcpy(countries[i][j].name, names[i][j]);
 
-    // allocate the structure containing pointers to Elements. `elements` is a pointer to a pointer of Elements,
-    // because it will contain(point to) rows of the matrix, which are actually pointers to Elements.
-    Element **elements = (Element **) malloc(sizeof(Element *) * rows);
-    for (int i = 0; i < rows; i++) {
-        // each row will contain Elements, we need a pointer to that area
-        elements[i] = (Element *) malloc(sizeof(Element) * columns);
+            countries[i][j].capital = (char *) malloc(sizeof(char) * strlen(capitals[i][j]) + 1);
+            strcpy(countries[i][j].capital, capitals[i][j]);
 
-        for (int j = 0; j < columns; j++) {
-            // each name will be dynamically allocated.
-            elements[i][j].name = (char *) malloc(sizeof(char) * strlen(names[i][j]));
-            elements[i][j].value = i + j;
-            strcpy(elements[i][j].name, names[i][j]);
+            countries[i][j].population = i + j;
         }
     }
-    // deallocate bottom-up:
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < columns; j++) {
-            free(elements[i][j].name);
-        }
-        free(elements[i]);
-    }
-    free(elements);
+    return 0;
+
 }
