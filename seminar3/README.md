@@ -1,13 +1,14 @@
-#include <iostream>
-#include <string>
+# Seminar 3
 
+A basic example:
+```c++
 class Country {
 private:
     std::string name;
     std::string capital;
     int population;
 public:
-
+    
     Country(std::string name, std::string capital, int population) {
         this->name = name;
         this->population = population;
@@ -26,18 +27,13 @@ public:
     int get_population() {
         return this->population;
     }
-
+    
     std::string to_string() {
         return "Country {name = " + this->name + ", capital=" + this->capital + ", population=" +
                std::to_string(this->population) + "}";
     }
 
 };
+```
 
-
-int main() {
-    Country country{"Cuba", "Havana", 11};
-    std::cout << country.to_string() << std::endl;
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
-}
+:bulb: Question: How can we reduce the number of copying strings?
