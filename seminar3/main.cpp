@@ -8,26 +8,26 @@ private:
     int population;
 public:
 
-    Country(std::string name, std::string capital, int population) {
+    Country(const std::string &name, const std::string &capital, int population) {
         this->name = name;
         this->population = population;
         this->capital = capital;
 
     }
 
-    std::string get_name() {
+    const std::string &get_name() const {
         return this->name;
     }
 
-    std::string get_capital() {
+    const std::string &get_capital() const {
         return this->capital;
     }
 
-    int get_population() {
+    int get_population() const {
         return this->population;
     }
 
-    std::string to_string() {
+    std::string to_string() {// no const reference!
         return "Country {name = " + this->name + ", capital=" + this->capital + ", population=" +
                std::to_string(this->population) + "}";
     }
