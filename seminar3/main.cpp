@@ -15,6 +15,40 @@ public:
 
     }
 
+    /// default constructor - has no arguments
+    Country() {
+        this->name = "";
+        this->population = 0;
+        this->capital = "";
+        std::cout << "default-constructing country" << std::endl;
+    }
+
+    /// destructor - also has no arguments
+    ~Country() {
+        std::cout << "destroying country" << std::endl;
+    }
+
+    /// Copy constructor - invoked when constructing an object from another
+    /// \param country
+    Country(const Country &country) {
+        this->name = country.name;
+        this->population = country.population;
+        this->capital = country.capital;
+        std::cout << "copying country" << std::endl;
+    }
+
+    /// Copy-assignment operator - invoked when assigning one object to another
+    /// \param other
+    /// \return
+    Country &operator=(const Country &other) {
+        this->name = other.name;
+        this->capital = other.capital;
+        this->population = other.population;
+        std::cout << "copy-constructing country" << std::endl;
+        return *this;
+    }
+
+
     const std::string &get_name() const {
         return this->name;
     }
@@ -32,26 +66,31 @@ public:
                std::to_string(this->population) + "}";
     }
 
+    void set_name(const std::string &new_name) {//can't mark as const
+        this->name = new_name;
+    }
+
 };
+
+void function_that_copies_country(Country country) {
+    country.set_name("Denmark");
+}
+
+/// Function that allows the inside of the function to modify the parameter, but avoids copying it
+/// \param country
+void function_that_allows_modifications(Country &country) {
+    country.set_name("Argentina");
+}
+
+/// Function that allows the inside of the function to modify the parameter, but avoids copying it
+/// \param country
+void function_that_doesnt_allow_modifications(const Country &country) {
+    //country.set_name("Argentina"); // won't work
+}
 
 
 int main() {
-    int k = 10, k1 = 11;
-    const int *p = &k; // pointer to int that is constant
-    int const *p1 = &k;
-
-    p = &k1;//works
-    // *p+=1; // doesn't work
-
-    p1 = &k1;//works
-    // *p1 += 1;// doesn't work
-
-    // int* const p2; // has to be initialized, doesn't work
-    int *const p2 = &k;
-    // p2=&k1; // doesn't work
-    const int *const p3 = &k;//const pointer to const int
-    // p3=&k1; // doesn't work
-    // *p3+=1; // doesn't work
-    std::cout << "Hello, World!" << std::endl;
+    Country country{"Egypt", "Cairo", 120};
+    function_that_copies_country(country);
     return 0;
 }
