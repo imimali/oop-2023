@@ -122,7 +122,7 @@ public:
         this->name = other.name;
         this->capital = other.capital;
         this->population = other.population;
-        std::cout << "copy-constructing country" << std::endl;
+        std::cout << "copy-assigning country" << std::endl;
         return *this;
     }
 
@@ -220,4 +220,155 @@ int main() {
 <summary>:thinking: Will this work? What will be the output?</summary>
 
 <p>Explanation: Won't work. Country is declared as const, but `set_name` is not(and also it can't be since it does modify the object). A non-const qualified method can't be called on a const-qualified object.</p>
+</details>
+
+### Let's try vectors now
+Let's have some [more countries](https://www.youtube.com/watch?v=rvrZJ5C_Nwg&t=264s)!
+```c++
+int main() {
+    Country country{"Cuba", "Havana", 123};
+    Country country1{"Indonesia", "Djakarta", 345};
+    Country country2{"Jamaica", "Kingston", 30};
+    std::vector<Country> countries;
+    countries.push_back(country);
+    countries.push_back(country1);
+    countries.push_back(country2);
+    return 0;
+}
+```
+<details>
+<summary>:thinking: Will this work? What will be the output?</summary>
+
+<p>constructing country with params</p>
+<p>constructing country with params</p>
+<p>constructing country with params</p>
+<p>copying country</p>
+<p>copying country</p>
+<p>copying country</p>
+<p>destroying country</p>
+<p>copying country</p>
+<p>copying country</p>
+<p>copying country</p>
+<p>destroying country</p>
+<p>destroying country</p>
+<p>destroying country</p>
+<p>destroying country</p>
+<p>destroying country</p>
+<p>destroying country</p>
+<p>destroying country</p>
+<p>destroying country</p>
+
+<br>
+<b>So what happened here exactly?</b>
+<p>We create three countries, `push-back` copies them over, get three copies, so far so good. But where does the rest come from?</p>
+<p>Explanation: the std:vector is a dynamic vector. It resizes, and while moving the elements, it copies them over and destroys the old ones.</p>
+<p>Try adding the following line after `countries` is declared and see the output:</p>
+<i>countries.reserve(3);</i>
+</details>
+
+### But wait, there's more
+```c++
+int main() {
+    Country country{"Cuba", "Havana", 123};
+    Country country1{"Indonesia", "Djakarta", 345};
+    Country country2{"Jamaica", "Kingston", 30};
+    std::vector<Country> countries;
+    countries.reserve(3);
+    countries.push_back(country);
+    countries.push_back(country1);
+    countries.push_back(country2);
+
+    for(Country c:countries){
+        // do something
+    }
+    return 0;
+}
+```
+<details>
+<summary>:thinking: What will be the output?</summary>
+<p>constructing country with params</p>
+<p>constructing country with params</p>
+<p>constructing country with params</p>
+<p>copying country</p>
+<p>copying country</p>
+<p>copying country</p>
+<p>copying country</p>
+<p>destroying country</p>
+<p>copying country</p>
+<p>destroying country</p>
+<p>copying country</p>
+<p>destroying country</p>
+<p>destroying country</p>
+<p>destroying country</p>
+<p>destroying country</p>
+<p>destroying country</p>
+<p>destroying country</p>
+<p>destroying country</p>
+<br>
+<p>Explanation: the for loop copies every country in the local variable, which as soon as they get out of the scope, get deallocated.</p>
+<p>Try modifying the loop to something like</p>
+<i>for(const Country& c:countries)</i>
+</details>
+
+### Copy constructor
+```c++
+int main() {
+    Country country{"Cuba", "Havana", 123};
+    Country country1=country;
+    return 0;
+}
+```
+<details>
+<summary>:thinking: What will be the output?</summary>
+<p>constructing country with params</p>
+<p>copying country</p>
+<p>destroying country</p>
+<p>destroying country</p>
+<br>
+<p>Explanation: `country1` is declared as a copy of `country`, so it is initialized via the copy constructor</p>
+</details>
+
+### Copy assigment
+```c++
+int main() {
+    Country country{"Cuba", "Havana", 123};
+    Country country1;
+    country1=country;
+    return 0;
+}
+```
+<details>
+<summary>:thinking: What will be the output?</summary>
+<p>constructing country with params</p>
+<p>default-constructing country/p>
+<p>copy-assigning country</p>
+<p>destroying country</p>
+<p>destroying country</p>
+<br>
+<p>Explanation: `country1` is initialized with the default constructor and only later reassigned, so it won't be the copy constructor,
+but the copy assignment operator that kicks in.</p>
+</details>
+
+### Last, but not least
+```c++
+int main() {
+    std::vector<Country> countries(5);
+    return 0;
+}
+```
+<details>
+<summary>:thinking: What will be the output?</summary>
+
+<p>default-constructing country/p>
+<p>default-constructing country/p>
+<p>default-constructing country/p>
+<p>default-constructing country/p>
+<p>default-constructing country/p>
+<p>destroying country</p>
+<p>destroying country</p>
+<p>destroying country</p>
+<p>destroying country</p>
+<p>destroying country</p>
+<br>
+<p>Explanation: When we initialize a vector like this, the underlying structure will actually initialize objects there(unlike `reserve`, which only allocates the necessary space. Therefore, we end up with 5 objects in the underlying vector, that also get deallocated in the end.</p>
 </details>
