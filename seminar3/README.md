@@ -40,7 +40,7 @@ public:
 
 ## Const correctness
 
-A const-correct version of the [Country](9dc97d3efa78ee00a012bd1b788abc7b5f29ab52) class.
+A const-correct version of the [Country](https://github.com/imimali/oop-2023/commit/9dc97d3efa78ee00a012bd1b788abc7b5f29ab52) class.
 
 ### Const ninja :ninja:
 
@@ -340,7 +340,7 @@ int main() {
 <details>
 <summary>:thinking: What will be the output?</summary>
 <p>constructing country with params</p>
-<p>default-constructing country/p>
+<p>default-constructing country</p>
 <p>copy-assigning country</p>
 <p>destroying country</p>
 <p>destroying country</p>
@@ -359,11 +359,11 @@ int main() {
 <details>
 <summary>:thinking: What will be the output?</summary>
 
-<p>default-constructing country/p>
-<p>default-constructing country/p>
-<p>default-constructing country/p>
-<p>default-constructing country/p>
-<p>default-constructing country/p>
+<p>default-constructing country</p>
+<p>default-constructing country</p>
+<p>default-constructing country</p>
+<p>default-constructing country</p>
+<p>default-constructing country</p>
 <p>destroying country</p>
 <p>destroying country</p>
 <p>destroying country</p>
