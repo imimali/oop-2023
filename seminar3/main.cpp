@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 class Country {
 private:
@@ -9,6 +10,7 @@ private:
 public:
 
     Country(const std::string &name, const std::string &capital, int population) {
+        std::cout << "constructing country with params" << std::endl;
         this->name = name;
         this->population = population;
         this->capital = capital;
@@ -44,7 +46,7 @@ public:
         this->name = other.name;
         this->capital = other.capital;
         this->population = other.population;
-        std::cout << "copy-constructing country" << std::endl;
+        std::cout << "copy-assigning country" << std::endl;
         return *this;
     }
 
@@ -72,25 +74,8 @@ public:
 
 };
 
-void function_that_copies_country(Country country) {
-    country.set_name("Denmark");
-}
-
-/// Function that allows the inside of the function to modify the parameter, but avoids copying it
-/// \param country
-void function_that_allows_modifications(Country &country) {
-    country.set_name("Argentina");
-}
-
-/// Function that allows the inside of the function to modify the parameter, but avoids copying it
-/// \param country
-void function_that_doesnt_allow_modifications(const Country &country) {
-    //country.set_name("Argentina"); // won't work
-}
-
 
 int main() {
-    Country country{"Egypt", "Cairo", 120};
-    function_that_copies_country(country);
+    std::vector<Country> countries(5);
     return 0;
 }
