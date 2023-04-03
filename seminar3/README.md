@@ -383,3 +383,50 @@ int main() {
 <br>
 Explanation: When we initialize a vector like this, the underlying structure will actually initialize objects there(unlike `reserve`, which only allocates the necessary space. Therefore, we end up with 5 objects in the underlying vector, that also get deallocated in the end.<br>
 </details>
+
+### Lambdas
+
+An example with filtering and sorting
+```c++
+int main() {
+    std::vector<Country> countries;
+    countries.emplace_back("USA", "Washington", 300);
+    countries.emplace_back("China", "Beijing", 1000);
+    countries.emplace_back("Russia", "Moscow", 150);
+    countries.emplace_back("India", "Mumbai", 1000);
+    std::vector<Country> filtered;
+    int min_population = 500;
+
+    std::copy_if(countries.begin(), countries.end(),//where to copy from, up to where
+                 std::back_inserter(filtered), // actually insert into the result, don't just use whatever there is
+                 [min_population](const Country &c) { // lambda expression
+                     return c.get_population() > min_population;
+                 }
+    );
+
+    std::sort(countries.begin(), countries.end(),
+              [](const Country &c1, const Country &c2) {
+                  return c1.get_population() > c2.get_population();
+              });
+    
+    std::cout << "Filtered:" << std::endl;
+    for (const Country &c: filtered) {
+        std::cout << c.to_string() << std::endl;
+    }
+
+    std::cout << "All sorted:" << std::endl;
+    for (const Country &c: countries) {
+        std::cout << c.to_string() << std::endl;
+    }
+    return 0;
+}
+```
+
+How do lambdas work?
+
+You can check [this](https://www.cprogramming.com/c++11/c++11-lambda-closures.html) out.
+
+Also notice the lambda syntax. Capture list, parameters, body. The capture list can be
+- `[=]` - capture all by value
+- `[&]` - capture all by reference
+- `[a, &b]` - capture `a` by value and `b` by reference
