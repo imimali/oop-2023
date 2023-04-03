@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 class Country {
 private:
@@ -63,7 +64,7 @@ public:
         return this->population;
     }
 
-    std::string to_string() {// no const reference!
+    std::string to_string() const {// no const reference!
         return "Country {name = " + this->name + ", capital=" + this->capital + ", population=" +
                std::to_string(this->population) + "}";
     }
@@ -76,6 +77,34 @@ public:
 
 
 int main() {
-    std::vector<Country> countries(5);
+    std::vector<Country> countries;
+    countries.emplace_back("USA", "Washington", 300);
+    countries.emplace_back("China", "Beijing", 1000);
+    countries.emplace_back("Russia", "Moscow", 150);
+    countries.emplace_back("India", "Mumbai", 1000);
+    std::vector<Country> filtered;
+    int min_population = 500;
+
+    std::copy_if(countries.begin(), countries.end(),
+                 std::back_inserter(filtered),
+                 [min_population](const Country &c) {
+                     return c.get_population() > min_population;
+                 }
+    );
+
+    std::sort(countries.begin(), countries.end(),
+              [](const Country &c1, const Country &c2) {
+                  return c1.get_population() > c2.get_population();
+              });
+
+    std::cout << "Filtered:" << std::endl;
+    for (const Country &c: filtered) {
+        std::cout << c.to_string() << std::endl;
+    }
+
+    std::cout << "All sorted:" << std::endl;
+    for (const Country &c: countries) {
+        std::cout << c.to_string() << std::endl;
+    }
     return 0;
 }

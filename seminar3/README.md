@@ -169,13 +169,15 @@ int main() {
 
 <details>
 <summary>:thinking: What will be the output?</summary>
-<p>constructing country with params</p>
-<p>copying country</p>
-<p>destroying country</p>
-<p>destroying country</p>
+<div style="border:solid 1px;padding-left: 0.5rem">
+    constructing country with params<br>
+    copying country<br>
+    destroying country<br>
+    destroying country<br>
+</div>
 <br>
-<p>Explanation: we construct `Egypt`, then copy it over at the function call.
-The destructor then kicks in as both get out of the scope.</p>
+Explanation: we construct `Egypt`, then copy it over at the function call.
+The destructor then kicks in as both get out of the scope.<br>
 </details>
 
 ### Second
@@ -196,10 +198,12 @@ int main() {
 ```
 <details>
 <summary>:thinking: Will this work? What will be the output?</summary>
-<p>constructing country with params</p>
-<p>destroying country</p>
+<div style="border:solid 1px;padding-left: 0.5rem">
+    constructing country with params<br>
+    destroying country<br>
+</div>
 <br>
-<p>Explanation: Yes, it will work, because `set_name` is not marked as const. Yes, it will correctly modify the country.</p>
+Explanation: Yes, it will work, because `set_name` is not marked as const. Yes, it will correctly modify the country.<br>
 </details>
 
 ### Now again
@@ -219,7 +223,7 @@ int main() {
 <details>
 <summary>:thinking: Will this work? What will be the output?</summary>
 
-<p>Explanation: Won't work. Country is declared as const, but `set_name` is not(and also it can't be since it does modify the object). A non-const qualified method can't be called on a const-qualified object.</p>
+Explanation: Won't work. Country is declared as const, but `set_name` is not(and also it can't be since it does modify the object). A non-const qualified method can't be called on a const-qualified object.<br>
 </details>
 
 ### Let's try vectors now
@@ -238,31 +242,31 @@ int main() {
 ```
 <details>
 <summary>:thinking: Will this work? What will be the output?</summary>
-
-<p>constructing country with params</p>
-<p>constructing country with params</p>
-<p>constructing country with params</p>
-<p>copying country</p>
-<p>copying country</p>
-<p>copying country</p>
-<p>destroying country</p>
-<p>copying country</p>
-<p>copying country</p>
-<p>copying country</p>
-<p>destroying country</p>
-<p>destroying country</p>
-<p>destroying country</p>
-<p>destroying country</p>
-<p>destroying country</p>
-<p>destroying country</p>
-<p>destroying country</p>
-<p>destroying country</p>
-
+<div style="border:solid 1px;padding-left: 0.5rem">
+    constructing country with params<br>
+    constructing country with params<br>
+    constructing country with params<br>
+    copying country<br>
+    copying country<br>
+    copying country<br>
+    destroying country<br>
+    copying country<br>
+    copying country<br>
+    copying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+</div>
 <br>
 <b>So what happened here exactly?</b>
-<p>We create three countries, `push-back` copies them over, get three copies, so far so good. But where does the rest come from?</p>
-<p>Explanation: the std:vector is a dynamic vector. It resizes, and while moving the elements, it copies them over and destroys the old ones.</p>
-<p>Try adding the following line after `countries` is declared and see the output:</p>
+We create three countries, `push-back` copies them over, get three copies, so far so good. But where does the rest come from?<br>
+Explanation: the std:vector is a dynamic vector. It resizes, and while moving the elements, it copies them over and destroys the old ones.<br>
+Try adding the following line after `countries` is declared and see the output:<br>
 <i>countries.reserve(3);</i>
 </details>
 
@@ -286,27 +290,29 @@ int main() {
 ```
 <details>
 <summary>:thinking: What will be the output?</summary>
-<p>constructing country with params</p>
-<p>constructing country with params</p>
-<p>constructing country with params</p>
-<p>copying country</p>
-<p>copying country</p>
-<p>copying country</p>
-<p>copying country</p>
-<p>destroying country</p>
-<p>copying country</p>
-<p>destroying country</p>
-<p>copying country</p>
-<p>destroying country</p>
-<p>destroying country</p>
-<p>destroying country</p>
-<p>destroying country</p>
-<p>destroying country</p>
-<p>destroying country</p>
-<p>destroying country</p>
+<div style="border:solid 1px;padding-left: 0.5rem">
+    constructing country with params<br>
+    constructing country with params<br>
+    constructing country with params<br>
+    copying country<br>
+    copying country<br>
+    copying country<br>
+    copying country<br>
+    destroying country<br>
+    copying country<br>
+    destroying country<br>
+    copying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+</div>
 <br>
-<p>Explanation: the for loop copies every country in the local variable, which as soon as they get out of the scope, get deallocated.</p>
-<p>Try modifying the loop to something like</p>
+Explanation: the for loop copies every country in the local variable, which as soon as they get out of the scope, get deallocated.<br>
+Try modifying the loop to something like<br>
 <i>for(const Country& c:countries)</i>
 </details>
 
@@ -320,12 +326,14 @@ int main() {
 ```
 <details>
 <summary>:thinking: What will be the output?</summary>
-<p>constructing country with params</p>
-<p>copying country</p>
-<p>destroying country</p>
-<p>destroying country</p>
+<div style="border:solid 1px;padding-left: 0.5rem">
+    constructing country with params<br>
+    copying country<br>
+    destroying country<br>
+    destroying country<br>
+</div>
 <br>
-<p>Explanation: `country1` is declared as a copy of `country`, so it is initialized via the copy constructor</p>
+Explanation: `country1` is declared as a copy of `country`, so it is initialized via the copy constructor<br>
 </details>
 
 ### Copy assigment
@@ -339,14 +347,16 @@ int main() {
 ```
 <details>
 <summary>:thinking: What will be the output?</summary>
-<p>constructing country with params</p>
-<p>default-constructing country</p>
-<p>copy-assigning country</p>
-<p>destroying country</p>
-<p>destroying country</p>
+<div style="border:solid 1px;padding-left: 0.5rem">
+    constructing country with params<br>
+    default-constructing country<br>
+    copy-assigning country<br>
+    destroying country<br>
+    destroying country<br>
+</div>
 <br>
-<p>Explanation: `country1` is initialized with the default constructor and only later reassigned, so it won't be the copy constructor,
-but the copy assignment operator that kicks in.</p>
+Explanation: `country1` is initialized with the default constructor and only later reassigned, so it won't be the copy constructor,
+but the copy assignment operator that kicks in.<br>
 </details>
 
 ### Last, but not least
@@ -358,17 +368,65 @@ int main() {
 ```
 <details>
 <summary>:thinking: What will be the output?</summary>
-
-<p>default-constructing country</p>
-<p>default-constructing country</p>
-<p>default-constructing country</p>
-<p>default-constructing country</p>
-<p>default-constructing country</p>
-<p>destroying country</p>
-<p>destroying country</p>
-<p>destroying country</p>
-<p>destroying country</p>
-<p>destroying country</p>
+<div style="border:solid 1px;padding-left: 0.5rem">
+    default-constructing country<br>
+    default-constructing country<br>
+    default-constructing country<br>
+    default-constructing country<br>
+    default-constructing country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+</div>
 <br>
-<p>Explanation: When we initialize a vector like this, the underlying structure will actually initialize objects there(unlike `reserve`, which only allocates the necessary space. Therefore, we end up with 5 objects in the underlying vector, that also get deallocated in the end.</p>
+Explanation: When we initialize a vector like this, the underlying structure will actually initialize objects there(unlike `reserve`, which only allocates the necessary space. Therefore, we end up with 5 objects in the underlying vector, that also get deallocated in the end.<br>
 </details>
+
+### Lambdas
+
+An example with filtering and sorting
+```c++
+int main() {
+    std::vector<Country> countries;
+    countries.emplace_back("USA", "Washington", 300);
+    countries.emplace_back("China", "Beijing", 1000);
+    countries.emplace_back("Russia", "Moscow", 150);
+    countries.emplace_back("India", "Mumbai", 1000);
+    std::vector<Country> filtered;
+    int min_population = 500;
+
+    std::copy_if(countries.begin(), countries.end(),//where to copy from, up to where
+                 std::back_inserter(filtered), // actually insert into the result, don't just use whatever there is
+                 [min_population](const Country &c) { // lambda expression
+                     return c.get_population() > min_population;
+                 }
+    );
+
+    std::sort(countries.begin(), countries.end(),
+              [](const Country &c1, const Country &c2) {
+                  return c1.get_population() > c2.get_population();
+              });
+    
+    std::cout << "Filtered:" << std::endl;
+    for (const Country &c: filtered) {
+        std::cout << c.to_string() << std::endl;
+    }
+
+    std::cout << "All sorted:" << std::endl;
+    for (const Country &c: countries) {
+        std::cout << c.to_string() << std::endl;
+    }
+    return 0;
+}
+```
+
+How do lambdas work?
+
+You can check [this](https://www.cprogramming.com/c++11/c++11-lambda-closures.html) out.
+
+Also notice the lambda syntax. Capture list, parameters, body. The capture list can be
+- `[=]` - capture all by value
+- `[&]` - capture all by reference
+- `[a, &b]` - capture `a` by value and `b` by reference
