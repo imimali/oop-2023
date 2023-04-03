@@ -169,10 +169,12 @@ int main() {
 
 <details>
 <summary>:thinking: What will be the output?</summary>
-constructing country with params<br>
-copying country<br>
-destroying country<br>
-destroying country<br>
+<div style="border:solid 1px;padding-left: 0.5rem">
+    constructing country with params<br>
+    copying country<br>
+    destroying country<br>
+    destroying country<br>
+</div>
 <br>
 Explanation: we construct `Egypt`, then copy it over at the function call.
 The destructor then kicks in as both get out of the scope.<br>
@@ -196,8 +198,10 @@ int main() {
 ```
 <details>
 <summary>:thinking: Will this work? What will be the output?</summary>
-constructing country with params<br>
-destroying country<br>
+<div style="border:solid 1px;padding-left: 0.5rem">
+    constructing country with params<br>
+    destroying country<br>
+</div>
 <br>
 Explanation: Yes, it will work, because `set_name` is not marked as const. Yes, it will correctly modify the country.<br>
 </details>
@@ -238,26 +242,26 @@ int main() {
 ```
 <details>
 <summary>:thinking: Will this work? What will be the output?</summary>
-
-constructing country with params<br>
-constructing country with params<br>
-constructing country with params<br>
-copying country<br>
-copying country<br>
-copying country<br>
-destroying country<br>
-copying country<br>
-copying country<br>
-copying country<br>
-destroying country<br>
-destroying country<br>
-destroying country<br>
-destroying country<br>
-destroying country<br>
-destroying country<br>
-destroying country<br>
-destroying country<br>
-
+<div style="border:solid 1px;padding-left: 0.5rem">
+    constructing country with params<br>
+    constructing country with params<br>
+    constructing country with params<br>
+    copying country<br>
+    copying country<br>
+    copying country<br>
+    destroying country<br>
+    copying country<br>
+    copying country<br>
+    copying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+</div>
 <br>
 <b>So what happened here exactly?</b>
 We create three countries, `push-back` copies them over, get three copies, so far so good. But where does the rest come from?<br>
@@ -286,24 +290,26 @@ int main() {
 ```
 <details>
 <summary>:thinking: What will be the output?</summary>
-constructing country with params<br>
-constructing country with params<br>
-constructing country with params<br>
-copying country<br>
-copying country<br>
-copying country<br>
-copying country<br>
-destroying country<br>
-copying country<br>
-destroying country<br>
-copying country<br>
-destroying country<br>
-destroying country<br>
-destroying country<br>
-destroying country<br>
-destroying country<br>
-destroying country<br>
-destroying country<br>
+<div style="border:solid 1px;padding-left: 0.5rem">
+    constructing country with params<br>
+    constructing country with params<br>
+    constructing country with params<br>
+    copying country<br>
+    copying country<br>
+    copying country<br>
+    copying country<br>
+    destroying country<br>
+    copying country<br>
+    destroying country<br>
+    copying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+</div>
 <br>
 Explanation: the for loop copies every country in the local variable, which as soon as they get out of the scope, get deallocated.<br>
 Try modifying the loop to something like<br>
@@ -320,10 +326,12 @@ int main() {
 ```
 <details>
 <summary>:thinking: What will be the output?</summary>
-constructing country with params<br>
-copying country<br>
-destroying country<br>
-destroying country<br>
+<div style="border:solid 1px;padding-left: 0.5rem">
+    constructing country with params<br>
+    copying country<br>
+    destroying country<br>
+    destroying country<br>
+</div>
 <br>
 Explanation: `country1` is declared as a copy of `country`, so it is initialized via the copy constructor<br>
 </details>
@@ -339,11 +347,13 @@ int main() {
 ```
 <details>
 <summary>:thinking: What will be the output?</summary>
-constructing country with params<br>
-default-constructing country<br>
-copy-assigning country<br>
-destroying country<br>
-destroying country<br>
+<div style="border:solid 1px;padding-left: 0.5rem">
+    constructing country with params<br>
+    default-constructing country<br>
+    copy-assigning country<br>
+    destroying country<br>
+    destroying country<br>
+</div>
 <br>
 Explanation: `country1` is initialized with the default constructor and only later reassigned, so it won't be the copy constructor,
 but the copy assignment operator that kicks in.<br>
@@ -358,17 +368,18 @@ int main() {
 ```
 <details>
 <summary>:thinking: What will be the output?</summary>
-
-default-constructing country<br>
-default-constructing country<br>
-default-constructing country<br>
-default-constructing country<br>
-default-constructing country<br>
-destroying country<br>
-destroying country<br>
-destroying country<br>
-destroying country<br>
-destroying country<br>
+<div style="border:solid 1px;padding-left: 0.5rem">
+    default-constructing country<br>
+    default-constructing country<br>
+    default-constructing country<br>
+    default-constructing country<br>
+    default-constructing country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+    destroying country<br>
+</div>
 <br>
 Explanation: When we initialize a vector like this, the underlying structure will actually initialize objects there(unlike `reserve`, which only allocates the necessary space. Therefore, we end up with 5 objects in the underlying vector, that also get deallocated in the end.<br>
 </details>
