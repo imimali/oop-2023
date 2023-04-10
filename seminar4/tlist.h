@@ -23,58 +23,13 @@ public:
 
     ~DynamicVector();
 
-    DynamicVector(DynamicVector &other) {
-        std::cout << "Copy constructor called on " << this->id << " and " << other.id << std::endl;
-        this->length = other.length;
-        this->capacity = other.capacity;
-        this->elements = new T[other.capacity];
-        for (int i = 0; i < this->length; i++) {
-            this->elements[i] = other.elements[i];
-        }
-    }
+    DynamicVector(DynamicVector &other);
 
-    DynamicVector<T> &operator=(const DynamicVector<T> &other) {
-        std::cout << "Copy assignment operator called on " << this->id << " and " << other.id << std::endl;
-        if (this == &other) {
-            return *this;
-        }
-        delete[] this->elements;
-        this->length = other.length;
-        this->capacity = other.capacity;
-        this->elements = new T[other.capacity];
-        for (int i = 0; i < this->length; i++) {
-            this->elements[i] = other.elements[i];
-        }
-        return *this;
-    }
+    DynamicVector<T> &operator=(const DynamicVector<T> &other);
 
-    DynamicVector(DynamicVector<T> &&other) noexcept {
-        std::cout << "Move constructor called on " << this->id << " and " << other.id << std::endl;
-        this->elements = other.elements;
-        this->length = other.length;
-        this->capacity = other.capacity;
+    DynamicVector(DynamicVector<T> &&other) noexcept;
 
-        other.elements = nullptr;
-        other.length = 0;
-        other.capacity = 0;
-    }
-
-    DynamicVector<T> &operator=(DynamicVector<T> &&other) noexcept {
-        std::cout << "Move assignment operator called on " << this->id << " and " << other.id << std::endl;
-        if (this == &other) {
-            return *this;
-        }
-        delete[] this->elements;
-        this->elements = other.elements;
-        this->capacity = other.capacity;
-        this->length = other.length;
-
-        other.elements = nullptr;
-        other.length = 0;
-        other.capacity = 0;
-
-        return *this;
-    }
+    DynamicVector<T> &operator=(DynamicVector<T> &&other) noexcept;
 
     void add(const T &t) {
         this->ensure_capacity();
@@ -95,6 +50,62 @@ public:
         this->elements = aux;
     }
 };
+
+template<typename T>
+DynamicVector<T> &DynamicVector<T>::operator=(DynamicVector<T> &&other) noexcept {
+    if (this == &other) {
+        return *this;
+    }
+    delete[] this->elements;
+    this->elements = other.elements;
+    this->capacity = other.capacity;
+    this->length = other.length;
+
+    other.elements = nullptr;
+    other.length = 0;
+    other.capacity = 0;
+
+    return *this;
+}
+
+template<typename T>
+DynamicVector<T>::DynamicVector(DynamicVector<T> &&other) noexcept {
+    this->elements = other.elements;
+    this->length = other.length;
+    this->capacity = other.capacity;
+
+    other.elements = nullptr;
+    other.length = 0;
+    other.capacity = 0;
+}
+
+template<typename T>
+DynamicVector<T> &DynamicVector<T>::operator=(const DynamicVector<T> &other) {
+    std::cout << "Copy assignment operator called on " << this->id << " and " << other.id << std::endl;
+    if (this == &other) {
+        return *this;
+    }
+    delete[] this->elements;
+    this->length = other.length;
+    this->capacity = other.capacity;
+    this->elements = new T[other.capacity];
+    for (int i = 0; i < this->length; i++) {
+        this->elements[i] = other.elements[i];
+    }
+    return *this;
+}
+
+template<typename T>
+DynamicVector<T>::DynamicVector(DynamicVector &other) {
+    std::cout << "Copy constructor called on " << this->id << " and " << other.id << std::endl;
+    this->length = other.length;
+    this->capacity = other.capacity;
+    this->elements = new T[other.capacity];
+    for (int i = 0; i < this->length; i++) {
+        this->elements[i] = other.elements[i];
+    }
+
+}
 
 template<typename T>
 DynamicVector<T>::~DynamicVector() {
