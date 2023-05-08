@@ -47,7 +47,7 @@ public:
         auto elements = this->repository.get_all();
         std::copy_if(elements.begin(), elements.end(), std::back_inserter(filtered),
                      [author](const Post &p) {
-                         return p.get_author() == author;
+                         return p.get_author().rfind(author) != std::string::npos; // check if string contains another
                      });
         return filtered;
     }
