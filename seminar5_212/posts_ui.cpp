@@ -50,7 +50,7 @@ void PostUI::populateList(vector<Post> elements) {
                    [](const Post &p) {
                        return QString::fromStdString(
                                std::to_string(p.get_id()) + " - " + p.get_title() + " " + p.get_author() + " " +
-                               p.get_content().substr(0, 10) + "...");
+                               p.get_content().substr(0, 10) + "...");//only display the first ten characters
                    });
 
     this->postsList->addItems(result);
@@ -76,7 +76,6 @@ void PostUI::connect() {
                          auto content = this->contentEdit->toPlainText().toStdString();
 
                          if (title.empty() || author.empty() || content.empty()) {
-                             //QMessageBox::warning(this,"Something went wrong","Something went wrong");
                              QMessageBox::information(this, "Something went wrong", "Something went wrong");
                              return;
                          }
@@ -84,6 +83,9 @@ void PostUI::connect() {
                          this->service.add(title, author, content);
 
                          this->populateList(this->service.get_all());
+                         this->titleEdit->clear();
+                         this->authorEdit->clear();
+                         this->contentEdit->clear();
                      });
     QObject::connect(this->updateButton,
                      &QPushButton::clicked, [this]() {
@@ -107,6 +109,10 @@ void PostUI::connect() {
 
                 this->service.update(element.get_id(), title, author, content);
                 this->populateList(this->service.get_all());
+
+                this->titleEdit->clear();
+                this->authorEdit->clear();
+                this->contentEdit->clear();
             });
 
     QObject::connect(this->filterEdit,
