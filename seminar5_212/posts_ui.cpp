@@ -10,13 +10,15 @@
 #include <QMessageBox>
 
 void PostUI::setupUI(QWidget *widget) {
-    widget->resize(700, 700);
+    widget->resize(800, 700);
     auto mainVBoxLayout = new QVBoxLayout(widget);
 
     this->postsList = new QListWidget;
 
 
     this->filterEdit = new QLineEdit;
+    this->filterEdit->setPlaceholderText("Filter by author");
+    this->filterEdit->setFixedHeight(36);
     mainVBoxLayout->addWidget(this->filterEdit);
     mainVBoxLayout->addWidget(this->postsList);
 
@@ -26,6 +28,13 @@ void PostUI::setupUI(QWidget *widget) {
     this->authorEdit = new QLineEdit;
     this->titleEdit = new QLineEdit;
     this->contentEdit = new QTextEdit;
+
+    this->authorEdit->setFixedHeight(36);
+    this->titleEdit->setFixedHeight(36);
+
+    this->authorEdit->setFixedWidth(256);
+    this->titleEdit->setFixedWidth(256);
+
 
     formLayout->addRow(QString("Title"), this->titleEdit);
     formLayout->addRow(QString("Author"), this->authorEdit);
@@ -50,7 +59,7 @@ void PostUI::populateList(vector<Post> elements) {
     std::transform(elements.begin(), elements.end(), std::back_inserter(result),
                    [](const Post &p) {
                        return QString::fromStdString(
-                               std::to_string(p.get_id()) + " - " + p.get_title() + " " + p.get_author() + " " +
+                               std::to_string(p.get_id()) + " - " + p.get_author() + ": " + p.get_title() + " " +
                                p.get_content().substr(0, 10) + "...");//only display the first ten characters
                    });
 
