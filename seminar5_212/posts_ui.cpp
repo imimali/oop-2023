@@ -44,6 +44,7 @@ void PostUI::setupUI(QWidget *widget) {
 }
 
 void PostUI::populateList(vector<Post> elements) {
+    this->currentElements = elements;
     this->postsList->clear();
     QStringList result;
     std::transform(elements.begin(), elements.end(), std::back_inserter(result),
@@ -61,8 +62,7 @@ void PostUI::connect() {
                      &QListWidget::itemSelectionChanged,
                      [this]() {
                          int index = this->selectedIndex();
-                         auto elements = this->service.get_all();
-                         auto element = elements.at(index);
+                         auto element = this->currentElements.at(index);
                          this->titleEdit->setText(QString::fromStdString(element.get_title()));
                          this->authorEdit->setText(QString::fromStdString(element.get_author()));
                          this->contentEdit->setText(QString::fromStdString(element.get_content()));
@@ -94,15 +94,13 @@ void PostUI::connect() {
                     QMessageBox::information(this, "Nothing selected", "Nothing selected");
                     return;
                 }
-                auto elements = this->service.get_all();
-                auto element = elements.at(index);
+                auto element = this->currentElements.at(index);
 
                 auto title = this->titleEdit->text().toStdString();
                 auto author = this->authorEdit->text().toStdString();
                 auto content = this->contentEdit->toPlainText().toStdString();
 
                 if (title.empty() || author.empty() || content.empty()) {
-                    //QMessageBox::warning(this,"Something went wrong","Something went wrong");
                     QMessageBox::information(this, "Something went wrong", "Something went wrong");
                     return;
                 }

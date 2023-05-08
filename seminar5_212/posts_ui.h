@@ -14,6 +14,7 @@ class PostUI:public QWidget{
     Q_OBJECT
     Service& service;
     QListWidget* postsList;
+    vector<Post> currentElements;
 
     QLineEdit* titleEdit;
     QLineEdit* authorEdit;
