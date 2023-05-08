@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <iostream>
 #include <QMessageBox>
+#include <QGroupBox>
 
 void PostUI::setupUI(QWidget *widget) {
     widget->resize(800, 700);
@@ -46,9 +47,15 @@ void PostUI::setupUI(QWidget *widget) {
     this->updateButton = new QPushButton("Update");
     hLayout->addWidget(this->addButton);
     hLayout->addWidget(this->updateButton);
+
+    this->authorsLayout = new QHBoxLayout;
+    auto authorsContainer = new QGroupBox("Authors");
+    authorsContainer->setLayout(this->authorsLayout);
     mainVBoxLayout->addLayout(hLayout);
+    mainVBoxLayout->addWidget(authorsContainer);
 
     this->populateList(this->service.get_all());
+    this->addAuthors();
     this->connect();
 }
 
@@ -92,6 +99,7 @@ void PostUI::connect() {
                          this->service.add(title, author, content);
 
                          this->populateList(this->service.get_all());
+                         this->addAuthors();
                          this->titleEdit->clear();
                          this->authorEdit->clear();
                          this->contentEdit->clear();
@@ -116,6 +124,7 @@ void PostUI::connect() {
 
                 this->service.update(element.get_id(), title, author, content);
                 this->populateList(this->service.get_all());
+                this->addAuthors();
 
                 this->titleEdit->clear();
                 this->authorEdit->clear();
@@ -135,5 +144,37 @@ void PostUI::connect() {
 int PostUI::selectedIndex() {
     auto index = this->postsList->selectionModel()->currentIndex();
     return index.row();
+}
+
+void PostUI::addAuthors() {
+    auto authors = this->service.get_authors();
+    for (const auto &author: authors) {
+        // skip existing authors
+        if (this->authorButtons.find(author) != this->authorButtons.end()) {
+            continue;
+        }
+        auto authorButton = new QPushButton(QString::fromStdString(author));
+        this->authorsLayout->addWidget(authorButton);
+        this->authorButtons[author] = authorButton;
+        //!!!!!!! try what happens if you capture author by reference
+        QObject::connect(authorButton, &QPushButton::clicked, this, [author, this]() {
+
+            int nrPosts = this->service.filter_by_author(author).size();
+            std::cout << "authorrr" << author << std::endl;
+            auto text = "Author '" + author + "' has " + std::to_string(nrPosts) + " post(s).";
+            QMessageBox::information(this, QString::fromStdString(text), QString::fromStdString(text));
+        });
+    }
+    vector<string> authorsToRemove;
+    for (const auto &pair: this->authorButtons) {
+        //author in button map but not in authors returned from the service, so it should be reomved
+        if (authors.find(pair.first) == authors.end()) {
+            authorsToRemove.push_back(pair.first);
+        }
+    }
+    for (const auto &author: authorsToRemove) {
+        delete this->authorButtons[author];
+        this->authorButtons.erase(author);
+    }
 }
 
