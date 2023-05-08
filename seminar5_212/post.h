@@ -30,7 +30,7 @@ public:
     string get_content() const { return this->content; }
 
     bool operator==(const Post &elem) {
-        return this->id = elem.id;
+        return this->id == elem.id;
     }
 
 };
