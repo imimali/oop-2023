@@ -8,6 +8,9 @@
 #include <algorithm>
 #include "post.h"
 #include "repository.h"
+#include <set>
+
+using std::set;
 
 class Service {
     Repository<Post> &repository;
@@ -52,6 +55,13 @@ public:
         return filtered;
     }
 
+    set<string> get_authors(){
+        set<string> result;
+        for(const Post&p:this->get_all()){
+            result.emplace(p.get_author());
+        }
+        return result;
+    }
 
 };
 
