@@ -14,8 +14,6 @@ void PostUI::setupUI(QWidget *widget) {
     auto mainVBoxLayout = new QVBoxLayout(widget);
 
     this->postsList = new QListWidget;
-    QFont f{"Verdana", 20};
-    this->postsList->setFont(f);
 
 
     this->filterEdit = new QLineEdit;
@@ -29,10 +27,6 @@ void PostUI::setupUI(QWidget *widget) {
     this->titleEdit = new QLineEdit;
     this->contentEdit = new QTextEdit;
 
-    this->authorEdit->setFont(f);
-    this->titleEdit->setFont(f);
-    this->contentEdit->setFont(f);
-
     formLayout->addRow(QString("Title"), this->titleEdit);
     formLayout->addRow(QString("Author"), this->authorEdit);
     formLayout->addRow(QString("Content"), this->contentEdit);
@@ -41,8 +35,6 @@ void PostUI::setupUI(QWidget *widget) {
 
     this->addButton = new QPushButton("Add");
     this->updateButton = new QPushButton("Update");
-    this->addButton->setFont(f);
-    this->updateButton->setFont(f);
     hLayout->addWidget(this->addButton);
     hLayout->addWidget(this->updateButton);
     mainVBoxLayout->addLayout(hLayout);

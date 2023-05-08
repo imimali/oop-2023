@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
     service.add("titl5","aaa","exorxcbdfghdgfcizamus te omnis iumundus spiritus");
     //service.update(1,"aa","a","a");
     QApplication a(argc, argv);
-
+    QApplication::setFont( QFont{"Verdana", 20});
     PostUI ui{service};
     ui.show();
     return QApplication::exec();
