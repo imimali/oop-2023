@@ -41,6 +41,10 @@ public:
         this->populateList();
     }
 
+    ~ChatWindow() override {
+        this->session.unregister_observer(this);
+    }
+
 
 };
 
