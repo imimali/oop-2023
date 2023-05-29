@@ -1,0 +1,3 @@
+Mazda;qw2;red;11
+Mercedes;qw1;black;12
+Daewoo;qw3;white;110
