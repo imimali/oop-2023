@@ -1,0 +1,8 @@
+cj-123;mazda;black;123
+bh-456;bmw;green;555
+gh-356;ww;red;443
+cj-111;ford;red;1235
+cc-123;skoda;yellow;12355
+as-496;bugatti;red;555
+ll-353;ferrari;blue;443
+qq-111;ford;red;1235

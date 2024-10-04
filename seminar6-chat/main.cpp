@@ -20,6 +20,6 @@ int main(int argc, char *argv[]) {
     window.show();
     window1.show();
     window2.show();
-    stats.show();
+    //stats.show();
     return QApplication::exec();
 }
